@@ -1,7 +1,7 @@
 {
-  "name": "matrixgl",
-  "version": "2.0.0",
-  "description": "Yet another matrix library for WebGL",
+  "name": "matrixgl_fork",
+  "version": "2.0.3",
+  "description": "Fork of matrixGL package https://github.com/kotofurumiya/matrixgl",
   "keywords": [
     "webgl",
     "math",
@@ -11,7 +11,7 @@
   "type": "module",
   "main": "./lib/esm/index.js",
   "types": "./lib/esm/index.d.ts",
-  "author": "Koto Furumiya <kotofurumiya@gmail.com>",
+  "author": "Neskech",
   "license": "Zlib",
   "files": [
     "lib/"
@@ -23,13 +23,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kotofurumiya/matrixgl.git"
+    "url": "https://github.com/neskech/matrixgl.git"
   },
-  "bugs": {
-    "url": "https://github.com/kotofurumiya/matrixgl/issues",
-    "email": "kotofurumiya@gmail.com"
-  },
-  "homepage": "https://github.com/kotofurumiya/matrixgl",
+  "homepage": "https://github.com/neskech/matrixgl.git",
   "scripts": {
     "typedoc": "typedoc ./src --out ./docs --readme README.md && nodetouch ./docs/.nojekyll",
     "test": "uvu -r tsm __tests__",

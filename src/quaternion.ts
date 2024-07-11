@@ -1,5 +1,5 @@
-import { Float32Vector3 } from './float32vector';
-import { Matrix4x4 } from './matrix';
+import { Vector3 } from "./vector";
+import { Matrix4x4 } from "./matrix";
 
 /**
  * Quaternion which is 4-dimensional complex number.
@@ -15,23 +15,33 @@ export class Quaternion {
   /**
    * Create a rotation quaternion around `normalizedAxis`.
    * `normalizedAxis` must be normalized.
-   * @param {Float32Vector3} normalizedAxis
+   * @param {Vector3} normalizedAxis
    * @param {number} radian
    * @returns {Quaternion}
    */
-  static rotationAround(normalizedAxis: Float32Vector3, radian: number): Quaternion {
+  static rotationAround(
+    normalizedAxis: Vector3,
+    radian: number
+  ): Quaternion {
     const sin = Math.sin(radian / 2.0);
     const cos = Math.cos(radian / 2.0);
-    return new Quaternion(normalizedAxis.x * sin, normalizedAxis.y * sin, normalizedAxis.z * sin, cos);
+    return new Quaternion(
+      normalizedAxis.x * sin,
+      normalizedAxis.y * sin,
+      normalizedAxis.z * sin,
+      cos
+    );
   }
 
   /**
    * Returns a normalized quaternion.
    * @returns {Quaternion}
    */
-  normalize() : Quaternion {
+  normalize(): Quaternion {
     const mag = this.magnitude;
-    if(mag === 0) { return this; }
+    if (mag === 0) {
+      return this;
+    }
     const r = 1 / mag;
     return new Quaternion(this.x * r, this.y * r, this.z * r, this.w * r);
   }
@@ -44,7 +54,12 @@ export class Quaternion {
    * @returns {Quaternion}
    */
   add(other: Quaternion): Quaternion {
-    return new Quaternion(this.x + other.x, this.y + other.y, this.z + other.z, this.w + other.w);
+    return new Quaternion(
+      this.x + other.x,
+      this.y + other.y,
+      this.z + other.z,
+      this.w + other.w
+    );
   }
 
   /**
@@ -55,7 +70,12 @@ export class Quaternion {
    * @returns {Quaternion}
    */
   mulByScalar(scalar: number): Quaternion {
-    return new Quaternion(this.x * scalar, this.y * scalar, this.z * scalar, this.w * scalar);
+    return new Quaternion(
+      this.x * scalar,
+      this.y * scalar,
+      this.z * scalar,
+      this.w * scalar
+    );
   }
 
   /**
@@ -64,7 +84,9 @@ export class Quaternion {
    * @returns {number}
    */
   dot(other: Quaternion): number {
-    return this.x * other.x + this.y * other.y + this.z * other.z + this.w * other.w;
+    return (
+      this.x * other.x + this.y * other.y + this.z * other.z + this.w * other.w
+    );
   }
 
   /**
@@ -74,13 +96,17 @@ export class Quaternion {
    * @param {{chooseShorterAngle: boolean}} options Does not work currently. slerp chooses shorter angle regardless of this value.
    * @returns {Quaternion}
    */
-  slerp(other: Quaternion , t: number, options: { chooseShorterAngle: boolean } = { chooseShorterAngle: true }): Quaternion {
+  slerp(
+    other: Quaternion,
+    t: number,
+    options: { chooseShorterAngle: boolean } = { chooseShorterAngle: true }
+  ): Quaternion {
     let dotProd: number = this.dot(other);
     let otherQuaternion: Quaternion = other;
 
     // When the dot product is negative, slerp chooses the longer way.
     // So we should negate the `other` quaternion.
-    if(dotProd < 0) {
+    if (dotProd < 0) {
       dotProd = -dotProd;
       otherQuaternion = other.mulByScalar(-1);
     }
@@ -88,8 +114,12 @@ export class Quaternion {
     const omega: number = Math.acos(dotProd);
     const sinOmega: number = Math.sin(omega);
 
-    const q1: Quaternion = this.mulByScalar(Math.sin((1 - t) * omega) / sinOmega);
-    const q2: Quaternion = otherQuaternion.mulByScalar(Math.sin(t * omega) / sinOmega);
+    const q1: Quaternion = this.mulByScalar(
+      Math.sin((1 - t) * omega) / sinOmega
+    );
+    const q2: Quaternion = otherQuaternion.mulByScalar(
+      Math.sin(t * omega) / sinOmega
+    );
 
     return q1.add(q2);
   }
@@ -99,7 +129,9 @@ export class Quaternion {
    * @returns {number}
    */
   get magnitude(): number {
-    return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w);
+    return Math.sqrt(
+      this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w
+    );
   }
 
   /**
@@ -211,10 +243,22 @@ export class Quaternion {
     const m44 = 1;
 
     return new Matrix4x4(
-      m11, m21, m31, m41,
-      m12, m22, m32, m42,
-      m13, m23, m33, m43,
-      m14, m24, m34, m44
+      m11,
+      m21,
+      m31,
+      m41,
+      m12,
+      m22,
+      m32,
+      m42,
+      m13,
+      m23,
+      m33,
+      m43,
+      m14,
+      m24,
+      m34,
+      m44
     );
   }
 

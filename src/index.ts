@@ -1,3 +1,3 @@
-export * from './float32vector';
-export * from './matrix';
-export * from './quaternion';
+export * from "./vector";
+export * from "./matrix";
+export * from "./quaternion";

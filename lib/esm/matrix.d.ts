@@ -1,4 +1,4 @@
-import { Float32Vector3 } from './float32vector';
+import { Vector3 } from "./vector";
 /**
  * An interface for matrices;
  */
@@ -94,19 +94,19 @@ export declare class Matrix4x4 implements Matrix {
     static rotationZ(radian: number): Matrix4x4;
     /**
      * Returns rotation matrix around `normalizedAxis`. `normalizedAxis` must be normalized.
-     * @param {Float32Vector3} normalizedAxis
+     * @param {Vector3} normalizedAxis
      * @param {number} radian
      * @returns {Matrix4x4}
      */
-    static rotationAround(normalizedAxis: Float32Vector3, radian: number): Matrix4x4;
+    static rotationAround(normalizedAxis: Vector3, radian: number): Matrix4x4;
     /**
      * Returns "look at" matrix.
-     * @param {Float32Vector3} cameraPosition
-     * @param {Float32Vector3} lookAtPosition
-     * @param {Float32Vector3} cameraUp
+     * @param {Vector3} cameraPosition
+     * @param {Vector3} lookAtPosition
+     * @param {Vector3} cameraUp
      * @returns {Matrix4x4}
      */
-    static lookAt(cameraPosition: Float32Vector3, lookAtPosition: Float32Vector3, cameraUp: Float32Vector3): Matrix4x4;
+    static lookAt(cameraPosition: Vector3, lookAtPosition: Vector3, cameraUp: Vector3): Matrix4x4;
     /**
      * Returns an orthographic projection matrix.
      * @param {{top: number; bottom: number; left: number; right: number; near: number; far: number}} argsObject
@@ -204,11 +204,11 @@ export declare class Matrix4x4 implements Matrix {
      * Rotate the matrix around the `normalizedAxis` and return new Matrix4x4.
      *
      * This method does not mutate the matrix.
-     * @param {Float32Vector3} normalizedAxis
+     * @param {Vector3} normalizedAxis
      * @param {number} radian
      * @returns {Matrix4x4}
      */
-    rotateAround(normalizedAxis: Float32Vector3, radian: number): Matrix4x4;
+    rotateAround(normalizedAxis: Vector3, radian: number): Matrix4x4;
     get values(): Float32Array;
     toString(): string;
 }

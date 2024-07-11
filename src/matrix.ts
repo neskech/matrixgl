@@ -1,5 +1,5 @@
-import { Float32Vector3, Float32Vector4 } from './float32vector';
-import { Quaternion } from './quaternion';
+import { Vector3, Vector4 } from "./vector";
+import { Quaternion } from "./quaternion";
 
 /**
  * An interface for matrices;
@@ -26,10 +26,7 @@ export class Matrix2x2 implements Matrix {
   protected _values: Float32Array;
 
   constructor(m11: number, m21: number, m12: number, m22: number) {
-    this._values = new Float32Array([
-      m11, m21,
-      m12, m22
-    ]);
+    this._values = new Float32Array([m11, m21, m12, m22]);
   }
 
   /**
@@ -58,14 +55,26 @@ export class Matrix3x3 implements Matrix {
   protected _values: Float32Array;
 
   constructor(
-    m11: number, m21: number, m31: number,
-    m12: number, m22: number, m32: number,
-    m13: number, m23: number, m33: number
+    m11: number,
+    m21: number,
+    m31: number,
+    m12: number,
+    m22: number,
+    m32: number,
+    m13: number,
+    m23: number,
+    m33: number
   ) {
     this._values = new Float32Array([
-      m11, m21, m31,
-      m12, m22, m32,
-      m13, m23, m33
+      m11,
+      m21,
+      m31,
+      m12,
+      m22,
+      m32,
+      m13,
+      m23,
+      m33,
     ]);
   }
 
@@ -74,11 +83,7 @@ export class Matrix3x3 implements Matrix {
    * @returns {Matrix3x3}
    */
   static identity(): Matrix3x3 {
-    return new Matrix3x3(
-      1.0, 0.0, 0.0,
-      0.0, 1.0, 0.0,
-      0.0, 0.0, 1.0
-    );
+    return new Matrix3x3(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0);
   }
 
   get values(): Float32Array {
@@ -99,16 +104,40 @@ export class Matrix4x4 implements Matrix {
   protected _values: Float32Array;
 
   constructor(
-    m11: number, m21: number, m31: number, m41: number,
-    m12: number, m22: number, m32: number, m42: number,
-    m13: number, m23: number, m33: number, m43: number,
-    m14: number, m24: number, m34: number, m44: number
+    m11: number,
+    m21: number,
+    m31: number,
+    m41: number,
+    m12: number,
+    m22: number,
+    m32: number,
+    m42: number,
+    m13: number,
+    m23: number,
+    m33: number,
+    m43: number,
+    m14: number,
+    m24: number,
+    m34: number,
+    m44: number
   ) {
     this._values = new Float32Array([
-      m11, m21, m31, m41,
-      m12, m22, m32, m42,
-      m13, m23, m33, m43,
-      m14, m24, m34, m44
+      m11,
+      m21,
+      m31,
+      m41,
+      m12,
+      m22,
+      m32,
+      m42,
+      m13,
+      m23,
+      m33,
+      m43,
+      m14,
+      m24,
+      m34,
+      m44,
     ]);
   }
 
@@ -118,10 +147,22 @@ export class Matrix4x4 implements Matrix {
    */
   static identity(): Matrix4x4 {
     return new Matrix4x4(
-      1.0, 0.0, 0.0, 0.0,
-      0.0, 1.0, 0.0, 0.0,
-      0.0, 0.0, 1.0, 0.0,
-      0.0, 0.0, 0.0, 1.0
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0
     );
   }
 
@@ -134,10 +175,22 @@ export class Matrix4x4 implements Matrix {
    */
   static translation(tx: number, ty: number, tz: number): Matrix4x4 {
     return new Matrix4x4(
-      1.0, 0.0, 0.0, 0.0,
-      0.0, 1.0, 0.0, 0.0,
-      0.0, 0.0, 1.0, 0.0,
-      tx,  ty,  tz,  1.0
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      tx,
+      ty,
+      tz,
+      1.0
     );
   }
 
@@ -150,10 +203,22 @@ export class Matrix4x4 implements Matrix {
    */
   static scaling(sx: number, sy: number, sz: number): Matrix4x4 {
     return new Matrix4x4(
-      sx,  0.0, 0.0, 0.0,
-      0.0, sy,  0.0, 0.0,
-      0.0, 0.0, sz,  0.0,
-      0.0, 0.0, 0.0, 1.0
+      sx,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      sy,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      sz,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0
     );
   }
 
@@ -167,10 +232,22 @@ export class Matrix4x4 implements Matrix {
     const cos: number = Math.cos(radian);
 
     return new Matrix4x4(
-      1.0, 0.0,  0.0, 0.0,
-      0.0, cos,  sin, 0.0,
-      0.0, -sin, cos, 0.0,
-      0.0, 0.0,  0.0, 1.0
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      cos,
+      sin,
+      0.0,
+      0.0,
+      -sin,
+      cos,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0
     );
   }
 
@@ -184,10 +261,22 @@ export class Matrix4x4 implements Matrix {
     const cos: number = Math.cos(radian);
 
     return new Matrix4x4(
-      cos, 0.0, -sin, 0.0,
-      0.0, 1.0, 0.0,  0.0,
-      sin, 0.0, cos,  0.0,
-      0.0, 0.0, 0.0,  1.0
+      cos,
+      0.0,
+      -sin,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      sin,
+      0.0,
+      cos,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0
     );
   }
 
@@ -201,41 +290,74 @@ export class Matrix4x4 implements Matrix {
     const cos: number = Math.cos(radian);
 
     return new Matrix4x4(
-      cos,  sin, 0.0, 0.0,
-      -sin, cos, 0.0, 0.0,
-      0.0,  0.0, 1.0, 0.0,
-      0.0,  0.0, 0.0, 1.0
+      cos,
+      sin,
+      0.0,
+      0.0,
+      -sin,
+      cos,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0
     );
   }
 
   /**
    * Returns rotation matrix around `normalizedAxis`. `normalizedAxis` must be normalized.
-   * @param {Float32Vector3} normalizedAxis
+   * @param {Vector3} normalizedAxis
    * @param {number} radian
    * @returns {Matrix4x4}
    */
-  static rotationAround(normalizedAxis: Float32Vector3, radian: number) : Matrix4x4 {
+  static rotationAround(
+    normalizedAxis: Vector3,
+    radian: number
+  ): Matrix4x4 {
     const q = Quaternion.rotationAround(normalizedAxis, radian);
     return q.toRotationMatrix4();
   }
 
   /**
    * Returns "look at" matrix.
-   * @param {Float32Vector3} cameraPosition
-   * @param {Float32Vector3} lookAtPosition
-   * @param {Float32Vector3} cameraUp
+   * @param {Vector3} cameraPosition
+   * @param {Vector3} lookAtPosition
+   * @param {Vector3} cameraUp
    * @returns {Matrix4x4}
    */
-  static lookAt(cameraPosition: Float32Vector3, lookAtPosition: Float32Vector3, cameraUp: Float32Vector3): Matrix4x4 {
-    const zAxis: Float32Vector3 = cameraPosition.sub(lookAtPosition).normalize();
-    const xAxis: Float32Vector3 = cameraUp.cross(zAxis).normalize();
-    const yAxis: Float32Vector3 = zAxis.cross(xAxis).normalize();
+  static lookAt(
+    cameraPosition: Vector3,
+    lookAtPosition: Vector3,
+    cameraUp: Vector3
+  ): Matrix4x4 {
+    const zAxis: Vector3 = cameraPosition
+      .sub(lookAtPosition)
+      .normalize();
+    const xAxis: Vector3 = cameraUp.cross(zAxis).normalize();
+    const yAxis: Vector3 = zAxis.cross(xAxis).normalize();
 
     return new Matrix4x4(
-      xAxis.x, yAxis.x, zAxis.x, 0.0,
-      xAxis.y, yAxis.y, zAxis.y, 0.0,
-      xAxis.z, yAxis.z, zAxis.z, 0.0,
-      -cameraPosition.dot(xAxis), -cameraPosition.dot(yAxis), -cameraPosition.dot(zAxis), 1.0
+      xAxis.x,
+      yAxis.x,
+      zAxis.x,
+      0.0,
+      xAxis.y,
+      yAxis.y,
+      zAxis.y,
+      0.0,
+      xAxis.z,
+      yAxis.z,
+      zAxis.z,
+      0.0,
+      -cameraPosition.dot(xAxis),
+      -cameraPosition.dot(yAxis),
+      -cameraPosition.dot(zAxis),
+      1.0
     );
   }
 
@@ -244,7 +366,14 @@ export class Matrix4x4 implements Matrix {
    * @param {{top: number; bottom: number; left: number; right: number; near: number; far: number}} argsObject
    * @returns {Matrix4x4}
    */
-  static orthographic(argsObject: {top: number, bottom: number, left: number, right: number, near: number, far: number}): Matrix4x4 {
+  static orthographic(argsObject: {
+    top: number;
+    bottom: number;
+    left: number;
+    right: number;
+    near: number;
+    far: number;
+  }): Matrix4x4 {
     const top: number = argsObject.top;
     const bottom: number = argsObject.bottom;
     const left: number = argsObject.left;
@@ -253,10 +382,22 @@ export class Matrix4x4 implements Matrix {
     const far: number = argsObject.far;
 
     return new Matrix4x4(
-      2/(right-left),             0.0,                        0.0,                    0.0,
-      0.0,                        2/(top-bottom),             0.0,                    0.0,
-      0.0,                        0.0,                        -2/(far-near),          0.0,
-      -(right+left)/(right-left), -(top+bottom)/(top-bottom), -(far+near)/(far-near), 1.0
+      2 / (right - left),
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      2 / (top - bottom),
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -2 / (far - near),
+      0.0,
+      -(right + left) / (right - left),
+      -(top + bottom) / (top - bottom),
+      -(far + near) / (far - near),
+      1.0
     );
   }
 
@@ -265,7 +406,14 @@ export class Matrix4x4 implements Matrix {
    * @param {{top: number; bottom: number; left: number; right: number; near: number; far: number}} argsObject
    * @returns {Matrix4x4}
    */
-  static frustum(argsObject: {top: number, bottom: number, left: number, right: number, near: number, far: number}): Matrix4x4 {
+  static frustum(argsObject: {
+    top: number;
+    bottom: number;
+    left: number;
+    right: number;
+    near: number;
+    far: number;
+  }): Matrix4x4 {
     const top: number = argsObject.top;
     const bottom: number = argsObject.bottom;
     const left: number = argsObject.left;
@@ -274,10 +422,22 @@ export class Matrix4x4 implements Matrix {
     const far: number = argsObject.far;
 
     return new Matrix4x4(
-      2*near/(right-left),       0.0,                       0.0,                    0.0,
-      0.0,                       2*near/(top-bottom),       0.0,                    0.0,
-      (right+left)/(right-left), (top+bottom)/(top-bottom), -(far+near)/(far-near), -1.0,
-      0.0,                       0.0,                       -2*far*near/(far-near),  0.0
+      (2 * near) / (right - left),
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      (2 * near) / (top - bottom),
+      0.0,
+      0.0,
+      (right + left) / (right - left),
+      (top + bottom) / (top - bottom),
+      -(far + near) / (far - near),
+      -1.0,
+      0.0,
+      0.0,
+      (-2 * far * near) / (far - near),
+      0.0
     );
   }
 
@@ -286,7 +446,12 @@ export class Matrix4x4 implements Matrix {
    * @param {{fovY: number; aspect: number; near: number; far: number}} argsObject
    * @returns {Matrix4x4}
    */
-  static perspective(argsObject: {fovYRadian: number, aspectRatio: number, near: number, far: number}): Matrix4x4 {
+  static perspective(argsObject: {
+    fovYRadian: number;
+    aspectRatio: number;
+    near: number;
+    far: number;
+  }): Matrix4x4 {
     const top = argsObject.near * Math.tan(argsObject.fovYRadian * 0.5);
     const height = top * 2;
     const width = argsObject.aspectRatio * height;
@@ -300,8 +465,8 @@ export class Matrix4x4 implements Matrix {
       left,
       right,
       near: argsObject.near,
-      far: argsObject.far
-    })
+      far: argsObject.far,
+    });
   }
 
   /**
@@ -346,31 +511,43 @@ export class Matrix4x4 implements Matrix {
     const o43: number = other.values[11];
     const o44: number = other.values[15];
 
-    const p11: number = (m11 * o11) + (m12 * o21) + (m13 * o31) + (m14 * o41);
-    const p12: number = (m11 * o12) + (m12 * o22) + (m13 * o32) + (m14 * o42);
-    const p13: number = (m11 * o13) + (m12 * o23) + (m13 * o33) + (m14 * o43);
-    const p14: number = (m11 * o14) + (m12 * o24) + (m13 * o34) + (m14 * o44);
+    const p11: number = m11 * o11 + m12 * o21 + m13 * o31 + m14 * o41;
+    const p12: number = m11 * o12 + m12 * o22 + m13 * o32 + m14 * o42;
+    const p13: number = m11 * o13 + m12 * o23 + m13 * o33 + m14 * o43;
+    const p14: number = m11 * o14 + m12 * o24 + m13 * o34 + m14 * o44;
 
-    const p21: number = (m21 * o11) + (m22 * o21) + (m23 * o31) + (m24 * o41);
-    const p22: number = (m21 * o12) + (m22 * o22) + (m23 * o32) + (m24 * o42);
-    const p23: number = (m21 * o13) + (m22 * o23) + (m23 * o33) + (m24 * o43);
-    const p24: number = (m21 * o14) + (m22 * o24) + (m23 * o34) + (m24 * o44);
+    const p21: number = m21 * o11 + m22 * o21 + m23 * o31 + m24 * o41;
+    const p22: number = m21 * o12 + m22 * o22 + m23 * o32 + m24 * o42;
+    const p23: number = m21 * o13 + m22 * o23 + m23 * o33 + m24 * o43;
+    const p24: number = m21 * o14 + m22 * o24 + m23 * o34 + m24 * o44;
 
-    const p31: number = (m31 * o11) + (m32 * o21) + (m33 * o31) + (m34 * o41);
-    const p32: number = (m31 * o12) + (m32 * o22) + (m33 * o32) + (m34 * o42);
-    const p33: number = (m31 * o13) + (m32 * o23) + (m33 * o33) + (m34 * o43);
-    const p34: number = (m31 * o14) + (m32 * o24) + (m33 * o34) + (m34 * o44);
+    const p31: number = m31 * o11 + m32 * o21 + m33 * o31 + m34 * o41;
+    const p32: number = m31 * o12 + m32 * o22 + m33 * o32 + m34 * o42;
+    const p33: number = m31 * o13 + m32 * o23 + m33 * o33 + m34 * o43;
+    const p34: number = m31 * o14 + m32 * o24 + m33 * o34 + m34 * o44;
 
-    const p41: number = (m41 * o11) + (m42 * o21) + (m43 * o31) + (m44 * o41);
-    const p42: number = (m41 * o12) + (m42 * o22) + (m43 * o32) + (m44 * o42);
-    const p43: number = (m41 * o13) + (m42 * o23) + (m43 * o33) + (m44 * o43);
-    const p44: number = (m41 * o14) + (m42 * o24) + (m43 * o34) + (m44 * o44);
+    const p41: number = m41 * o11 + m42 * o21 + m43 * o31 + m44 * o41;
+    const p42: number = m41 * o12 + m42 * o22 + m43 * o32 + m44 * o42;
+    const p43: number = m41 * o13 + m42 * o23 + m43 * o33 + m44 * o43;
+    const p44: number = m41 * o14 + m42 * o24 + m43 * o34 + m44 * o44;
 
     return new Matrix4x4(
-      p11, p21, p31, p41,
-      p12, p22, p32, p42,
-      p13, p23, p33, p43,
-      p14, p24, p34, p44
+      p11,
+      p21,
+      p31,
+      p41,
+      p12,
+      p22,
+      p32,
+      p42,
+      p13,
+      p23,
+      p33,
+      p43,
+      p14,
+      p24,
+      p34,
+      p44
     );
   }
 
@@ -449,11 +626,11 @@ export class Matrix4x4 implements Matrix {
    * Rotate the matrix around the `normalizedAxis` and return new Matrix4x4.
    *
    * This method does not mutate the matrix.
-   * @param {Float32Vector3} normalizedAxis
+   * @param {Vector3} normalizedAxis
    * @param {number} radian
    * @returns {Matrix4x4}
    */
-  rotateAround(normalizedAxis: Float32Vector3, radian: number): Matrix4x4 {
+  rotateAround(normalizedAxis: Vector3, radian: number): Matrix4x4 {
     const r = Matrix4x4.rotationAround(normalizedAxis, radian);
     return this.mulByMatrix4x4(r);
   }

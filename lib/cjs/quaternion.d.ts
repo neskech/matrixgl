@@ -1,5 +1,5 @@
-import { Float32Vector3 } from './float32vector';
-import { Matrix4x4 } from './matrix';
+import { Vector3 } from "./vector";
+import { Matrix4x4 } from "./matrix";
 /**
  * Quaternion which is 4-dimensional complex number.
  * See [Wikipedia](https://en.wikipedia.org/wiki/Quaternion).
@@ -10,11 +10,11 @@ export declare class Quaternion {
     /**
      * Create a rotation quaternion around `normalizedAxis`.
      * `normalizedAxis` must be normalized.
-     * @param {Float32Vector3} normalizedAxis
+     * @param {Vector3} normalizedAxis
      * @param {number} radian
      * @returns {Quaternion}
      */
-    static rotationAround(normalizedAxis: Float32Vector3, radian: number): Quaternion;
+    static rotationAround(normalizedAxis: Vector3, radian: number): Quaternion;
     /**
      * Returns a normalized quaternion.
      * @returns {Quaternion}
